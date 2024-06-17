@@ -6,7 +6,7 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 15:22:45 by mspasic           #+#    #+#             */
-/*   Updated: 2024/06/14 20:09:53 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/06/17 12:54:03 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static char    *heredocing(char *delim, char *hd)
 		printf("error while opening file\n");
 	line = readline("heredoc> ");
 	ft_putendl_fd(line, fd); // Tom added this
-	while (ft_strncmp(delim, line, ft_strlen(delim)) != 0)
+	while (ft_strncmp(delim, line, ft_strlen(line)) != 0)
 	{
 		free (line);
 		line = readline("heredoc> ");

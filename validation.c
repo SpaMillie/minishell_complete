@@ -6,7 +6,7 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 11:48:57 by mspasic           #+#    #+#             */
-/*   Updated: 2024/06/15 14:50:06 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/06/17 12:55:41 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int validating(char *argv, t_mini *line)
         (is_it_redirect(line->metaed[i]) == 0)))
 		return (syntax_error(line, NULL, 4));
     trim_quotes(line);
+    here_doc(line);
     return (0);
 }
 
