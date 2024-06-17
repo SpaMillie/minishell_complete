@@ -6,23 +6,52 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:51:42 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/14 19:49:38 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/06/17 18:07:20 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static void	unlink_heredoc(t_mini *line)
+{
+	int	check;
+	int	i;
+
+	i = 0;
+	check = 0;
+	while (line->metaed[i] != NULL)
+    {
+		printf("whats my name?\n");
+        if (ft_strncmp(line->metaed[i], "<<", 3) == 0)
+		{
+			printf("this is where it stops\n");
+			i++;
+			check = unlink(line->metaed[i]);
+			if (check == -1)
+			{
+				ft_putendl_fd("minishell: cannot unlink here_doc", 2);
+				line->err_num = 2;
+			}
+			i++;
+		}
+		else
+			i++;
+	}
+}
+
 void	cleanup(t_mini *line, t_tokens **token, char *line_read, int option)
 {
 	int	i;
 
-	i = 0;
+	printf("does it get here?\n");
+	unlink_heredoc(line);
 	if (line_read)
 		free(line_read);
 	free_2d(line->element);
 	free_2d(line->metaed);
 	if (option)
 		free_2d(line->envp);
+	i = 0;
 	while (i < line->pipe_num)
 	{
 		free_2d(token[i]->command);

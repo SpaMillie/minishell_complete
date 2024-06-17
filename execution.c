@@ -6,7 +6,7 @@
 /*   By: mspasic <mspasic@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 14:06:44 by tparratt          #+#    #+#             */
-/*   Updated: 2024/06/14 20:00:34 by mspasic          ###   ########.fr       */
+/*   Updated: 2024/06/17 18:18:39 by mspasic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ static int	child(t_tokens *token, t_mini *line, int in_fd, int *fd)
 	} */
 	//else
 	//{
+	if (get_path(token[line->i].command, line->envp) == NULL)
+		return (-1);
 	if (execve(get_path(token[line->i].command, line->envp), token[line->i].command, line->envp) == -1)
 		exit(1);
 	//}
@@ -126,6 +128,8 @@ void	execute(t_tokens **token, t_mini *line)
 		}
 		else
 			in_fd = parent(in_fd, line, fd);
+		if (in_fd == -1)
+			return ;
 		line->i++;
 	}
 	wait_for_child(line);
